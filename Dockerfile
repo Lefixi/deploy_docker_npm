@@ -1,7 +1,7 @@
-FROM node:14-alpine3.12
-ADD ./app /app # we copied our app to container
-# change working directory
-WORKDIR /app
-RUN npm install
-# start application
-CMD [ "node", "main.js" ] 
+FROM node:carbon
+WORKDIR /usr/src/app
+COPY package*.json ./
+RUN npm install --only=production
+COPY app.js ./
+EXPOSE $PORT
+CMD [ "node", "app.js" ]
